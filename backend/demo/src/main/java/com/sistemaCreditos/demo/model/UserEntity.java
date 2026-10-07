@@ -4,11 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,9 +16,8 @@ import java.time.Instant;
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-@AllArgsConstructor 
-@Getter 
-@Setter 
+@AllArgsConstructor
+@Data
 public class UserEntity {
 
     @Id

@@ -1,8 +1,9 @@
 package com.sistemaCreditos.demo.dto;
 
-import lombok.*;
 
-import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -11,7 +12,7 @@ public class CreditRequestDto {
 
     private String id;
 
-    private BigDecimal amount;
+    private Integer amount;
 
     private Integer termMonths;
 

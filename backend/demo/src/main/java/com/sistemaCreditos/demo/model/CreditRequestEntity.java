@@ -7,14 +7,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -22,8 +20,7 @@ import java.util.UUID;
 @Table(name = "credit_requests")
 @NoArgsConstructor
 @AllArgsConstructor 
-@Getter 
-@Setter 
+@Data
 public class CreditRequestEntity {
 
     @Id
@@ -31,7 +28,7 @@ public class CreditRequestEntity {
     private UUID id;
 
     @Column(nullable = false)
-    private BigDecimal amount;
+    private Integer amount;
 
     @Column(name = "term_months", nullable = false)
     private Integer termMonths;
