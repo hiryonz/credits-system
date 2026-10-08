@@ -1,0 +1,35 @@
+<div class="auth" [class.auth--register]="isRegister">
+  @if (isRegister) {
+    <form class="auth__form auth__form--register p-48">
+      <h1 class="mb-32">Crear cuenta</h1>
+      <ion-input class="mb-16" label="Usuario" labelPlacement="floating" fill="outline"></ion-input>
+      <ion-input class="mb-16" label="Contraseña" labelPlacement="floating" fill="outline" type="password"></ion-input>
+      <ion-input class="mb-32" label="Confirmar contraseña" labelPlacement="floating" fill="outline" type="password"></ion-input>
+      <ion-button expand="block">Crear cuenta</ion-button>
+      <p class="mt-24">
+        ¿Ya tienes cuenta?
+        <ion-button fill="clear" size="small" (click)="toggle()">Iniciar sesión</ion-button>
+      </p>
+    </form>
+  } @else {
+    <form class="auth__form auth__form--login p-48">
+      <h1 class="mb-32">Iniciar sesión</h1>
+      <ion-input class="mb-16" label="Usuario" labelPlacement="floating" fill="outline"></ion-input>
+      <ion-input class="mb-32" label="Contraseña" labelPlacement="floating" fill="outline" type="password"></ion-input>
+      <ion-button expand="block">Entrar</ion-button>
+      <p class="mt-24">
+        ¿No tienes cuenta?
+        <ion-button fill="clear" size="small" (click)="toggle()">Crear cuenta</ion-button>
+      </p>
+    </form>
+  }
+
+  <div class="auth__brand py-32">
+    <svg width="120" height="120" viewBox="0 0 48 48" aria-hidden="true">
+      <rect width="48" height="48" fill="currentColor" />
+      <path d="M33 16a11 11 0 1 0 0 16" fill="none" stroke="var(--cs-header)" stroke-width="4" />
+      <path d="M25 24h12" stroke="var(--cs-header)" stroke-width="4" />
+    </svg>
+    <h2 class="mt-24">Crédito Simple</h2>
+  </div>
+</div>
