@@ -1,0 +1,32 @@
+.new-credit {
+  background: #ffffff;
+  color: var(--cs-text);
+  border-radius: 16px;
+}
+
+.new-credit__title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+ion-input {
+  --highlight-color-focused: var(--cs-text);
+  --highlight-color-valid: var(--cs-text);
+}
+
+.new-credit__error {
+  min-height: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ion-color-danger);
+}
+
+.new-credit__cancel {
+  width: 100%;
+  border: 0;
+  background: none;
+  color: var(--cs-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
