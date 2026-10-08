@@ -20,7 +20,8 @@ export class AuthService {
 
   public async login(credentials: LoginCredentials): Promise<void> {
     this.isLoading.set(true);
-
+    await this.storage.remove('username');
+    await this.storage.remove('token');
     try {
       const result = await this.authApi.login(credentials);
       await this.handleResponse(result);

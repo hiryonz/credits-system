@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CreditApiService } from './api-services/credit-api.service';
 import { ToastService } from './toast.service';
 import { ApiResult } from '../interface/api-result.interface';
-import { Credit, NewCreditRequest } from '../interface/credit.interface';
+import { Credit, CreditStatusChange, NewCreditRequest } from '../interface/credit.interface';
 import { ApiStatusCode } from '../enum/api-status-code.enum';
 import { CreditStatus } from '../enum/credit.enum';
 
@@ -71,6 +71,19 @@ export class CreditService {
     }
   }
 
+  public async changeCreditStatus(statusChange: CreditStatusChange): Promise<boolean> {
+    this.isSaving.set(true);
+
+    try {
+      const result = await this.creditApi.changeCreditStatus(statusChange);
+      return this.handleChangeStatusResponse(result);
+    } catch (error) {
+      return this.handleChangeStatusResponse((error as HttpErrorResponse).error);
+    } finally {
+      this.isSaving.set(false);
+    }
+  }
+
   private handleListResponse(response: ApiResult<Credit[]>): void {
     switch (response?.status?.code) {
       case ApiStatusCode.CreditSuccess:
@@ -108,6 +121,20 @@ export class CreditService {
         return false;
       default:
         this.toastService.error('No pudimos crear el crédito, intentalo nuevamente');
+        return false;
+    }
+  }
+
+  private handleChangeStatusResponse(response: ApiResult<Credit>): boolean {
+    switch (response?.status?.code) {
+      case ApiStatusCode.CreditStatusUpdated:
+        this.toastService.success('Estado actualizado');
+        return true;
+      case ApiStatusCode.CreditAlreadyProcessed:
+        this.toastService.error('La solicitud ya fue procesada y no puede cambiar de estado');
+        return false;
+      default:
+        this.toastService.error('No pudimos cambiar el estado, intentalo nuevamente');
         return false;
     }
   }

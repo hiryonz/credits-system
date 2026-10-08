@@ -2,7 +2,8 @@
   <cs-header></cs-header>
 
   <main class="detail__main px-24 py-24">
-    <a class="detail__back py-12" routerLink="/dashboard">← Volver a créditos</a>
+    <img class="detail__backimg" src="assets\icon\arrow-back.svg" alt="← " routerLink="/dashboard">
+    <a class="detail__back py-12" routerLink="/dashboard">Volver a créditos</a>
 
     @if (creditService.isDetailLoading()) {
       <div class="detail__content mt-24">
@@ -20,7 +21,9 @@
       <div class="detail__content">
         <div class="detail__heading mt-16 mb-32 pb-12">
           <h1 class="detail__title mt-4 mb-0">Crédito N.º {{ credit?.id }}</h1>
-          <button type="button" class="detail__change-status px-16 py-8 mb-8">Cambiar de estado</button>
+          @if (credit?.status === pendingStatus) {
+            <button type="button" class="detail__change-status px-16 py-8 mb-8" (click)="openChangeStatusModal()">Cambiar de estado</button>
+          }
         </div>
 
         <div class="detail__grid">
