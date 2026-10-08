@@ -32,18 +32,18 @@ export class ToastService {
   }
 
   async success(message: string) {
-    await this.show(message, 2000, 'success');
+    await this.show(message, 5000, 'success');
   }
 
   async error(message: string) {
-    await this.show(message, 3000, 'danger');
+    await this.show(message, 5000, 'danger');
   }
 
   async warning(message: string) {
-    await this.show(message, 3000, 'warning');
+    await this.show(message, 5000, 'warning');
   }
 
   async info(message: string) {
-    await this.show(message, 2000, 'dark', 'bottom');
+    await this.show(message, 5000, 'dark', 'bottom');
   }
 }
