@@ -4,6 +4,6 @@ export interface LoginCredentials {
 }
 
 export interface AuthenticatedUser {
-  username: string;
+  username?: string;
   token?: string;
 }

@@ -4,6 +4,6 @@ export interface ResponseStatus {
 }
 
 export interface ApiResult<T> {
-  status: ResponseStatus;
+  status?: ResponseStatus;
   body?: T;
 }
