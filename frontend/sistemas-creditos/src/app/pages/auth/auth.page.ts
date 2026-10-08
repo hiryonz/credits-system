@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonInput } from '@ionic/angular';
-import { AuthService } from '../services/auth.service';
-import { ButtonComponent } from '../components/button/button.component';
-import { ValidationPattern } from '../enum/validation-pattern.enum';
+import { AuthService } from '../../services/auth.service';
+import { ButtonComponent } from '../../components/button/button.component';
+import { ValidationPattern } from '../../enum/validation-pattern.enum';
 
 @Component({
   selector: 'app-auth',

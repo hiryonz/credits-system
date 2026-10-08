@@ -1,13 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { NavController, IonSpinner } from '@ionic/angular';
-import { AuthService } from '../services/auth.service';
-import { CreditService } from '../services/credit.service';
-import { StorageService } from '../services/storage.service';
-import { CreditStatus, CreditStatusLabel } from '../enum/credit.enum';
-import { ModalService } from '../services/modal.service';
-import { NewCreditModalComponent } from '../components/new-credit-modal/new-credit-modal.component';
-import { Credit } from '../interface/credit.interface';
+import { AuthService } from '../../services/auth.service';
+import { CreditService } from '../../services/credit.service';
+import { StorageService } from '../../services/storage.service';
+import { CreditStatus, CreditStatusLabel } from '../../enum/credit.enum';
+import { ModalService } from '../../services/modal.service';
+import { NewCreditModalComponent } from '../../components/new-credit-modal/new-credit-modal.component';
+import { Credit } from '../../interface/credit.interface';
 
 @Component({
   selector: 'app-dashboard',
