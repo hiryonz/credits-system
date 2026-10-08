@@ -7,6 +7,8 @@ export interface Credit {
   applicantDocument: string;
   status: CreditStatus;
   comment?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface NewCreditRequest {

@@ -41,6 +41,14 @@
               <span class="detail__muted">Cédula</span>
               <span class="detail__value">{{ credit?.applicantDocument }}</span>
             </div>
+            <div class="detail__field py-16">
+              <span class="detail__muted">Creación</span>
+              <span class="detail__value">{{ credit?.createdAt | date: 'dd/MM/yyyy · HH:mm' }}</span>
+            </div>
+            <div class="detail__field py-16">
+              <span class="detail__muted">Actualización</span>
+              <span class="detail__value">{{ credit?.updatedAt | date: 'dd/MM/yyyy · HH:mm' }}</span>
+            </div>
           </section>
 
           <section class="detail__card">
