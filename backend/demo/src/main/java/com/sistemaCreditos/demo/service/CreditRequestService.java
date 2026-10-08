@@ -1,18 +1,18 @@
 package com.sistemaCreditos.demo.service;
 
-import com.sistemaCreditos.demo.dto.CreditDetailResponseDto;
 import com.sistemaCreditos.demo.dto.CreditFilterRequestDto;
 import com.sistemaCreditos.demo.dto.CreditRequestDto;
-import com.sistemaCreditos.demo.dto.CreditResponseDto;
-import com.sistemaCreditos.demo.dto.StatusDto;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
+import java.util.UUID;
 
 public interface CreditRequestService {
 
-    ResponseEntity<CreditDetailResponseDto> create(CreditRequestDto request);
+    CreditRequestDto create(CreditRequestDto request);
 
-    ResponseEntity<CreditResponseDto> findAll(CreditFilterRequestDto request);
+    List<CreditRequestDto> findAll(CreditFilterRequestDto request);
 
-    ResponseEntity<StatusDto> changeStatus(CreditRequestDto request);
+    CreditRequestDto findById(UUID id);
+
+    CreditRequestDto changeStatus(CreditRequestDto request);
 }
