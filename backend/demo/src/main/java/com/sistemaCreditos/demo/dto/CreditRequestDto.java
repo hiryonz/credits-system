@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -31,5 +32,13 @@ public class CreditRequestDto {
 
     @Schema(description = "Comentario al aprobar o rechazar", example = "Cumple con los requisitos")
     private String comment;
+
+    @Schema(description = "Fecha de creación de la solicitud", example = "2026-10-08T10:15:30",
+            accessMode = Schema.AccessMode.READ_ONLY)
+    private LocalDateTime createdAt;
+
+    @Schema(description = "Fecha de la última actualización de la solicitud", example = "2026-10-08T12:40:00",
+            accessMode = Schema.AccessMode.READ_ONLY)
+    private LocalDateTime updatedAt;
 
 }

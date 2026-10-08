@@ -13,6 +13,8 @@ public interface CreditRequestMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "comment", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     CreditRequestEntity convertToEntity(CreditRequestDto creditRequestDto);
 
     CreditRequestDto convertToDto(CreditRequestEntity creditRequestEntity);
