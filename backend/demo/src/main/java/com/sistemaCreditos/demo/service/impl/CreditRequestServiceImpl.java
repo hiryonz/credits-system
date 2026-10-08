@@ -14,14 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class CreditRequestServiceImpl implements CreditRequestService {
 
-    private static final Integer MIN_AMOUNT = 500;
-    private static final Integer MAX_AMOUNT = 50000;
+    private static final BigDecimal MIN_AMOUNT = new BigDecimal("500");
+    private static final BigDecimal MAX_AMOUNT = new BigDecimal("50000");
     private static final Integer MIN_TERM_MONTHS = 6;
     private static final Integer MAX_TERM_MONTHS = 60;
 
@@ -36,7 +37,7 @@ public class CreditRequestServiceImpl implements CreditRequestService {
         final var amount = request.getAmount();
         final var terms = request.getTermMonths();
 
-        if (amount < MIN_AMOUNT || amount > MAX_AMOUNT) {
+        if (amount.compareTo(MIN_AMOUNT) < 0 || amount.compareTo(MAX_AMOUNT) > 0) {
             throw new BusinessException(GlobalStatusCodes.CREDIT_INVALID_AMOUNT);
         }
 
