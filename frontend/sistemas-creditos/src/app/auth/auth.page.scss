@@ -18,6 +18,38 @@
   margin-left: 50%;
 }
 
+.auth__content {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+ion-input {
+  --highlight-color-focused: var(--cs-text);
+  --highlight-color-valid: var(--cs-text);
+}
+
+.auth__error {
+  min-height: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ion-color-danger);
+}
+
+.auth__error--double {
+  min-height: 40px;
+}
+
+.auth__link {
+  border: 0;
+  background: none;
+  color: var(--cs-text);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
 .auth__brand {
   position: absolute;
   top: 0;

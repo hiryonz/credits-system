@@ -1,26 +1,44 @@
 <div class="auth" [class.auth--register]="isRegister">
   @if (isRegister) {
-    <form class="auth__form auth__form--register p-48">
-      <h1 class="mb-32">Crear cuenta</h1>
-      <ion-input class="mb-16" label="Usuario" labelPlacement="floating" fill="outline"></ion-input>
-      <ion-input class="mb-16" label="Contraseña" labelPlacement="floating" fill="outline" type="password"></ion-input>
-      <ion-input class="mb-32" label="Confirmar contraseña" labelPlacement="floating" fill="outline" type="password"></ion-input>
-      <ion-button expand="block">Crear cuenta</ion-button>
-      <p class="mt-24">
-        ¿Ya tienes cuenta?
-        <ion-button fill="clear" size="small" (click)="toggle()">Iniciar sesión</ion-button>
-      </p>
+    <form class="auth__form auth__form--register p-48" (ngSubmit)="register()">
+      <div class="auth__content">
+        <h1 class="mb-32">Crear cuenta</h1>
+        <div class="mb-16">
+          <ion-input label="Usuario" labelPlacement="floating" fill="outline" name="username" [(ngModel)]="username" (ionBlur)="validate('username')"></ion-input>
+          <p class="auth__error mt-4 mb-0">{{ errors.username }}</p>
+        </div>
+        <div class="mb-16">
+          <ion-input label="Contraseña" labelPlacement="floating" fill="outline" type="password" name="password" [(ngModel)]="password" (ionBlur)="validate('password')"></ion-input>
+        </div>
+        <div>
+          <ion-input label="Confirmar contraseña" labelPlacement="floating" fill="outline" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" (ionBlur)="validate('confirmPassword')"></ion-input>
+        </div>
+        <p class="auth__error auth__error--double mt-8 mb-0">{{ errors.password }}</p>
+        <app-button text="Crear cuenta" [isLoading]="authService.isLoading()"></app-button>
+        <p class="mt-24">
+          ¿Ya tienes cuenta?
+          <button type="button" class="auth__link p-0 ml-4" (click)="toggle()">Iniciar sesión</button>
+        </p>
+      </div>
     </form>
   } @else {
-    <form class="auth__form auth__form--login p-48">
-      <h1 class="mb-32">Iniciar sesión</h1>
-      <ion-input class="mb-16" label="Usuario" labelPlacement="floating" fill="outline"></ion-input>
-      <ion-input class="mb-32" label="Contraseña" labelPlacement="floating" fill="outline" type="password"></ion-input>
-      <ion-button expand="block">Entrar</ion-button>
-      <p class="mt-24">
-        ¿No tienes cuenta?
-        <ion-button fill="clear" size="small" (click)="toggle()">Crear cuenta</ion-button>
-      </p>
+    <form class="auth__form auth__form--login p-48" (ngSubmit)="login()">
+      <div class="auth__content">
+        <h1 class="mb-32">Iniciar sesión</h1>
+        <div class="mb-16">
+          <ion-input label="Usuario" labelPlacement="floating" fill="outline" name="username" [(ngModel)]="username" (ionBlur)="validate('username')"></ion-input>
+          <p class="auth__error mt-4 mb-0">{{ errors.username }}</p>
+        </div>
+        <div>
+          <ion-input label="Contraseña" labelPlacement="floating" fill="outline" type="password" name="password" [(ngModel)]="password" (ionBlur)="validate('password')"></ion-input>
+          <p class="auth__error auth__error--double mt-4 mb-0">{{ errors.password }}</p>
+        </div>
+        <app-button text="Entrar" [isLoading]="authService.isLoading()"></app-button>
+        <p class="mt-24">
+          ¿No tienes cuenta?
+          <button type="button" class="auth__link p-0 ml-4" (click)="toggle()">Crear cuenta</button>
+        </p>
+      </div>
     </form>
   }
 
