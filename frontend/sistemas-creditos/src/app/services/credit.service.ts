@@ -15,16 +15,19 @@ export class CreditService {
   public credits = signal<Credit[]>([]);
   public isLoading = signal(false);
   public isSaving = signal(false);
+  public isError = signal(false);
   public selectedStatus = signal<CreditStatus | null>(null);
 
   public async loadCredits(): Promise<void> {
     this.isLoading.set(true);
+    this.isError.set(false);
 
     try {
       const status = this.selectedStatus();
       const result = await this.creditApi.getCredits(status ? { status } : {});
       this.handleListResponse(result);
     } catch (error) {
+      this.isError.set(true);
       this.handleListResponse((error as HttpErrorResponse).error);
     } finally {
       this.isLoading.set(false);
@@ -56,9 +59,10 @@ export class CreditService {
         break;
       case ApiStatusCode.CreditNotFound:
         this.credits.set([]);
+        this.isError.set(false);
         break;
       default:
-        this.toastService.error('No pudimos cargar los créditos, intentalo nuevamente');
+        this.isError.set(true);
     }
   }
 

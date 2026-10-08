@@ -26,6 +26,12 @@
             </div>
           }
         </div>
+      } @else if (creditService.isError()) {
+        <div class="dashboard__content dashboard__empty py-48">
+          <img src="assets/icon/error-state-creditos.svg" alt="" width="200" class="mb-16" />
+          <p class="mt-0 mb-16">No pudimos cargar los créditos</p>
+          <button type="button" class="dashboard__create px-16 py-8" (click)="creditService.loadCredits()">Reintentar</button>
+        </div>
       } @else if (creditService.credits().length === 0) {
         <div class="dashboard__content dashboard__empty py-48">
           <img src="assets/icon/empty-state-creditos.svg" alt="" width="200" class="mb-16" />
