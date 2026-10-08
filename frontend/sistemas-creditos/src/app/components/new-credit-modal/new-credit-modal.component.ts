@@ -7,7 +7,7 @@ import { ModalService } from '../../services/modal.service';
 import { CreditLimit } from '../../enum/credit.enum';
 
 @Component({
-  selector: 'app-new-credit-modal',
+  selector: 'cs-new-credit-modal',
   templateUrl: 'new-credit-modal.component.html',
   styleUrls: ['new-credit-modal.component.scss'],
   imports: [FormsModule, IonInput, ButtonComponent],

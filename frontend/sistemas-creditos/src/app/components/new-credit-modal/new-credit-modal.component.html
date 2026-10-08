@@ -16,6 +16,6 @@
     <p class="new-credit__error mt-4 mb-0">{{ errors.termMonths }}</p>
   </div>
 
-  <app-button text="Crear crédito" [isLoading]="creditService.isSaving()"></app-button>
+  <cs-button text="Crear crédito" [isLoading]="creditService.isSaving()"></cs-button>
   <button type="button" class="new-credit__cancel mt-12 py-12" (click)="cancel()">Cancelar</button>
 </form>

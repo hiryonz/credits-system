@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--cs-header);
+  color: var(--cs-text);
+  border-bottom: 1.5px solid var(--cs-text);
+}
+
+.header__brand,
+.header__user {
+  display: flex;
+  align-items: center;
+}
+
+.header__brand-name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.header__logout {
+  min-height: 44px;
+  border: 0;
+  background: var(--cs-text);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}

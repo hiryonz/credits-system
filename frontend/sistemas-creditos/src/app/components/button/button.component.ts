@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { IonButton, IonSpinner } from '@ionic/angular';
 
 @Component({
-  selector: 'app-button',
+  selector: 'cs-button',
   templateUrl: 'button.component.html',
   imports: [IonButton, IonSpinner],
 })

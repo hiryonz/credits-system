@@ -5,6 +5,7 @@ import { ToastService } from './toast.service';
 import { ApiResult } from '../interface/api-result.interface';
 import { Credit, NewCreditRequest } from '../interface/credit.interface';
 import { ApiStatusCode } from '../enum/api-status-code.enum';
+import { CreditStatus } from '../enum/credit.enum';
 
 @Injectable({ providedIn: 'root' })
 export class CreditService {
@@ -14,18 +15,25 @@ export class CreditService {
   public credits = signal<Credit[]>([]);
   public isLoading = signal(false);
   public isSaving = signal(false);
+  public selectedStatus = signal<CreditStatus | null>(null);
 
   public async loadCredits(): Promise<void> {
     this.isLoading.set(true);
 
     try {
-      const result = await this.creditApi.getCredits();
+      const status = this.selectedStatus();
+      const result = await this.creditApi.getCredits(status ? { status } : {});
       this.handleListResponse(result);
     } catch (error) {
       this.handleListResponse((error as HttpErrorResponse).error);
     } finally {
       this.isLoading.set(false);
     }
+  }
+
+  public async filterByStatus(status: CreditStatus | null): Promise<void> {
+    this.selectedStatus.set(status);
+    await this.loadCredits();
   }
 
   public async createCredit(newCredit: NewCreditRequest): Promise<boolean> {

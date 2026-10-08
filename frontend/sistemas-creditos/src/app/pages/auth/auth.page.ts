@@ -6,7 +6,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { ValidationPattern } from '../../enum/validation-pattern.enum';
 
 @Component({
-  selector: 'app-auth',
+  selector: 'cs-auth',
   templateUrl: 'auth.page.html',
   styleUrls: ['auth.page.scss'],
   imports: [FormsModule, IonInput, ButtonComponent],

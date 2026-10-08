@@ -14,7 +14,7 @@
           <ion-input label="Confirmar contraseña" labelPlacement="floating" fill="outline" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" (ionBlur)="validate('confirmPassword')"></ion-input>
         </div>
         <p class="auth__error auth__error--double mt-8 mb-0">{{ errors.password }}</p>
-        <app-button text="Crear cuenta" [isLoading]="authService.isLoading()"></app-button>
+        <cs-button text="Crear cuenta" [isLoading]="authService.isLoading()"></cs-button>
         <p class="mt-24">
           ¿Ya tienes cuenta?
           <button type="button" class="auth__link p-0 ml-4" (click)="toggle()">Iniciar sesión</button>
@@ -33,7 +33,7 @@
           <ion-input label="Contraseña" labelPlacement="floating" fill="outline" type="password" name="password" [(ngModel)]="password" (ionBlur)="validate('password')"></ion-input>
           <p class="auth__error auth__error--double mt-4 mb-0">{{ errors.password }}</p>
         </div>
-        <app-button text="Entrar" [isLoading]="authService.isLoading()"></app-button>
+        <cs-button text="Entrar" [isLoading]="authService.isLoading()"></cs-button>
         <p class="mt-24">
           ¿No tienes cuenta?
           <button type="button" class="auth__link p-0 ml-4" (click)="toggle()">Crear cuenta</button>
