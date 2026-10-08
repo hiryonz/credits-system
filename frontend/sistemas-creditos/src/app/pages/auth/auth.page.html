@@ -8,10 +8,14 @@
           <p class="auth__error mt-4 mb-0">{{ errors.username }}</p>
         </div>
         <div class="mb-16">
-          <ion-input label="Contraseña" labelPlacement="floating" fill="outline" type="password" name="password" [(ngModel)]="password" (ionBlur)="validate('password')"></ion-input>
+          <ion-input label="Contraseña" labelPlacement="floating" fill="outline" type="password" name="password" [(ngModel)]="password" (ionBlur)="validate('password')">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
         </div>
         <div>
-          <ion-input label="Confirmar contraseña" labelPlacement="floating" fill="outline" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" (ionBlur)="validate('confirmPassword')"></ion-input>
+          <ion-input label="Confirmar contraseña" labelPlacement="floating" fill="outline" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" (ionBlur)="validate('confirmPassword')">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
         </div>
         <p class="auth__error auth__error--double mt-8 mb-0">{{ errors.password }}</p>
         <cs-button text="Crear cuenta" [isLoading]="authService.isLoading()"></cs-button>
@@ -30,7 +34,9 @@
           <p class="auth__error mt-4 mb-0">{{ errors.username }}</p>
         </div>
         <div>
-          <ion-input label="Contraseña" labelPlacement="floating" fill="outline" type="password" name="password" [(ngModel)]="password" (ionBlur)="validate('password')"></ion-input>
+          <ion-input label="Contraseña" labelPlacement="floating" fill="outline" type="password" name="password" [(ngModel)]="password" (ionBlur)="validate('password')">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
           <p class="auth__error auth__error--double mt-4 mb-0">{{ errors.password }}</p>
         </div>
         <cs-button text="Entrar" [isLoading]="authService.isLoading()"></cs-button>

@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonInput } from '@ionic/angular';
+import { IonInput, IonInputPasswordToggle, ViewWillEnter } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { ButtonComponent } from '../../components/button/button.component';
 import { ValidationPattern } from '../../enum/validation-pattern.enum';
@@ -9,24 +9,30 @@ import { ValidationPattern } from '../../enum/validation-pattern.enum';
   selector: 'cs-auth',
   templateUrl: 'auth.page.html',
   styleUrls: ['auth.page.scss'],
-  imports: [FormsModule, IonInput, ButtonComponent],
+  imports: [FormsModule, IonInput, IonInputPasswordToggle, ButtonComponent],
 })
-export class AuthPage {
+export class AuthPage implements ViewWillEnter {
+
   public authService = inject(AuthService);
 
   public isRegister = false;
-  public username = '';
-  public password = '';
+  public username = signal('');
+  public password = signal('');
   public confirmPassword = '';
   public errors = { username: '', password: '' };
+
+  ionViewWillEnter(): void {
+    console.log('reset called')
+    this.resetInfo();
+  }
 
   public validate(field: 'username' | 'password' | 'confirmPassword'): void {
     if (field === 'username') {
       this.errors.username = '';
 
-      if (!this.username) {
+      if (!this.username()) {
         this.errors.username = 'Ingresa tu usuario';
-      } else if (!new RegExp(ValidationPattern.Username).test(this.username)) {
+      } else if (this.isRegister && !new RegExp(ValidationPattern.Username).test(this.username())) {
         this.errors.username = 'El usuario debe tener de 4 a 20 caracteres';
       }
 
@@ -35,21 +41,18 @@ export class AuthPage {
 
     this.errors.password = '';
 
-    if (!this.password) {
+    if (!this.password()) {
       this.errors.password = 'Ingresa tu contraseña';
-    } else if (!new RegExp(ValidationPattern.Password).test(this.password)) {
+    } else if (this.isRegister && !new RegExp(ValidationPattern.Password).test(this.password())) {
       this.errors.password = 'Usa mínimo 8 caracteres, con al menos una mayúscula y un carácter especial';
-    } else if (field === 'confirmPassword' && this.password !== this.confirmPassword) {
+    } else if (field === 'confirmPassword' && this.password() !== this.confirmPassword) {
       this.errors.password = 'Las contraseñas no coinciden';
     }
   }
 
   public toggle(): void {
     this.isRegister = !this.isRegister;
-    this.username = '';
-    this.password = '';
-    this.confirmPassword = '';
-    this.errors = { username: '', password: '' };
+    this.resetInfo();
   }
 
   public async login(): Promise<void> {
@@ -57,7 +60,7 @@ export class AuthPage {
       return;
     }
 
-    await this.authService.login({ username: this.username, password: this.password });
+    await this.authService.login({ username: this.username(), password: this.password() });
   }
 
   public async register(): Promise<void> {
@@ -65,6 +68,13 @@ export class AuthPage {
       return;
     }
 
-    await this.authService.register({ username: this.username, password: this.password });
+    await this.authService.register({ username: this.username(), password: this.password() });
+  }
+
+  private resetInfo(): void {
+    this.username.set('');
+    this.password.set('');
+    this.confirmPassword = '';
+    this.errors = { username: '', password: '' };
   }
 }

@@ -7,12 +7,12 @@
   </div>
 
   <div class="mb-8">
-    <ion-input label="Monto" labelPlacement="floating" fill="outline" type="number" inputmode="decimal" name="amount" [(ngModel)]="amount" (ionBlur)="validate('amount')"></ion-input>
+    <ion-input label="Monto" labelPlacement="floating" fill="outline" type="text" inputmode="decimal" name="amount" [(ngModel)]="amount" (ionInput)="onAmountInput($event)" (ionBlur)="validate('amount')"></ion-input>
     <p class="new-credit__error mt-4 mb-0">{{ errors.amount }}</p>
   </div>
 
   <div class="mb-16">
-    <ion-input label="Meses" labelPlacement="floating" fill="outline" type="number" inputmode="numeric" name="termMonths" [(ngModel)]="termMonths" (ionBlur)="validate('termMonths')"></ion-input>
+    <ion-input label="Meses" labelPlacement="floating" fill="outline" type="text" inputmode="numeric" name="termMonths" [(ngModel)]="termMonths" (ionInput)="onTermMonthsInput($event)" (ionBlur)="validate('termMonths')"></ion-input>
     <p class="new-credit__error mt-4 mb-0">{{ errors.termMonths }}</p>
   </div>
 
