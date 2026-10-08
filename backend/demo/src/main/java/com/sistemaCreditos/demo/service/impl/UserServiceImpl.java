@@ -53,4 +53,15 @@ public class UserServiceImpl implements UserService {
 
         return mapper.convertToDto(user, jwtUtil.generateToken(user.getUsername()));
     }
+
+    @Override
+    public UserResponseDto refreshToken(String token) {
+        String username = jwtUtil.extractUsername(token)
+                .orElseThrow(() -> new BusinessException(GlobalStatusCodes.USER_INVALID_TOKEN));
+
+        UserEntity user = repository.findByUsername(username)
+                .orElseThrow(() -> new BusinessException(GlobalStatusCodes.USER_INVALID_TOKEN));
+
+        return mapper.convertToDto(user, jwtUtil.generateToken(user.getUsername()));
+    }
 }

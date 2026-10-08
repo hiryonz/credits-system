@@ -29,6 +29,7 @@ public enum GlobalStatusCodes {
     USER_NOT_FOUND("ACCT-005", "Usuario no encontrado", HttpStatus.NOT_FOUND),
     USER_INVALID_TOKEN("ACCT-006", "Token inválido o expirado", HttpStatus.UNAUTHORIZED),
     USER_INVALID_DATA("ACCT-007", "Datos del usuario inválidos", HttpStatus.BAD_REQUEST),
+    USER_TOKEN_REFRESHED("ACCT-008", "Token renovado correctamente", HttpStatus.OK),
     USER_INTERNAL_ERROR("ACCT-999", "Error interno procesando la solicitud", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private final String code;

@@ -8,4 +8,6 @@ public interface UserService {
     UserResponseDto register(UserRequestDto request);
 
     UserResponseDto login(UserRequestDto request);
+
+    UserResponseDto refreshToken(String token);
 }

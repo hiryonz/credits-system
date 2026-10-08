@@ -6,6 +6,8 @@ import com.sistemaCreditos.demo.exception.BusinessException;
 
 public final class UserValidator {
 
+    private static final String BEARER_PREFIX = "Bearer ";
+
     private UserValidator() {
     }
 
@@ -15,6 +17,13 @@ public final class UserValidator {
                 || isBlank(request.getPassword())) {
             throw new BusinessException(GlobalStatusCodes.USER_INVALID_DATA);
         }
+    }
+
+    public static String extractBearerToken(String authorizationHeader) {
+        if (isBlank(authorizationHeader) || !authorizationHeader.startsWith(BEARER_PREFIX)) {
+            throw new BusinessException(GlobalStatusCodes.USER_INVALID_TOKEN);
+        }
+        return authorizationHeader.substring(BEARER_PREFIX.length()).trim();
     }
 
     private static boolean isBlank(String value) {
