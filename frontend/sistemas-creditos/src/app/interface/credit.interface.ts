@@ -1,4 +1,4 @@
-import { CreditStatus } from '../enum/credit-status.enum';
+import { CreditStatus } from '../enum/credit.enum';
 
 export interface Credit {
   id: string;

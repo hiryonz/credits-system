@@ -1,5 +1,5 @@
 import { inject, Injectable, Type } from '@angular/core';
-import { ModalController } from '@ionic/angular/standalone';
+import { ModalController } from '@ionic/angular';
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {

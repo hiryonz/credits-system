@@ -1,0 +1,71 @@
+<div class="dashboard">
+  <header class="dashboard__header px-24 py-16">
+    <div class="dashboard__brand">
+      <svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true">
+        <rect width="48" height="48" fill="currentColor" />
+        <path d="M33 16a11 11 0 1 0 0 16" fill="none" stroke="var(--cs-header)" stroke-width="4" />
+        <path d="M25 24h12" stroke="var(--cs-header)" stroke-width="4" />
+      </svg>
+      <span class="dashboard__brand-name ml-12">Crédito Simple</span>
+    </div>
+    <div class="dashboard__user">
+      <span class="mr-16">{{ username }}</span>
+      <button type="button" class="dashboard__logout px-16 py-8" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="dashboard__main px-24 py-40">
+    <div class="dashboard__title-row mb-32">
+      <h1 class="dashboard__title m-0">Créditos</h1>
+    </div>
+
+    <div class="dashboard__buttons">
+      <div class="dashboard__filters mb-24">
+        <button type="button" class="dashboard__filter px-16 py-8" [class.dashboard__filter--active]="selectedStatus === null" (click)="selectStatus(null)">
+          Todos <span class="ml-8">{{ creditService.credits().length }}</span>
+        </button>
+        @for (status of statuses; track status) {
+          <button type="button" class="dashboard__filter px-16 py-8" [class.dashboard__filter--active]="selectedStatus === status" (click)="selectStatus(status)">
+            {{ statusLabels[status] }} <span class="ml-8">{{ countByStatus(status) }}</span>
+          </button>
+        }
+      </div>
+
+      <div class="dashboard__create-btn">
+          <button type="button" class="dashboard__filter px-16 py-8" (click)="openNewCreditModal()">
+            <span>Crear Credito</span>
+          </button>
+      </div>
+    </div>
+
+    @if (creditService.isLoading()) {
+      <div class="dashboard__empty py-48">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+    } @else if (getVisibleCredits().length === 0) {
+      <div class="dashboard__empty py-48">
+        <img src="assets/icon/empty-state-creditos.svg" alt="" width="200" class="mb-16" />
+        <p class="m-0">No hay créditos para mostrar</p>
+      </div>
+    } @else {
+      <div class="dashboard__table">
+        <div class="dashboard__row dashboard__row--head px-24 py-12">
+          <span>N.º</span>
+          <span>Cédula</span>
+          <span class="dashboard__cell--right">Monto</span>
+          <span class="dashboard__cell--right">Meses</span>
+          <span>Estado</span>
+        </div>
+        @for (credit of getVisibleCredits(); track credit.id) {
+          <div class="dashboard__row px-24 py-16">
+            <span class="dashboard__muted">{{ credit.id.slice(0, 8) }}</span>
+            <span>{{ credit.applicantDocument }}</span>
+            <span class="dashboard__cell--right">{{ credit.amount | currency: 'USD' }}</span>
+            <span class="dashboard__cell--right">{{ credit.termMonths }}</span>
+            <span class="dashboard__status dashboard__status--{{ credit.status.toLowerCase() }}">{{ statusLabels[credit.status] }}</span>
+          </div>
+        }
+      </div>
+    }
+  </main>
+</div>
