@@ -13,5 +13,4 @@ public interface CreditRequestRepository extends JpaRepository<CreditRequestEnti
 
     List<CreditRequestEntity> findCreditByStatus(String status);
 
-    List<CreditRequestEntity> findAllCredit();
 }
