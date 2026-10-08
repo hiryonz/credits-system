@@ -17,6 +17,9 @@ export class CreditService {
   public isSaving = signal(false);
   public isError = signal(false);
   public selectedStatus = signal<CreditStatus | null>(null);
+  public selectedCredit = signal<Credit | null>(null);
+  public isDetailLoading = signal(false);
+  public isDetailError = signal(false);
 
   public async loadCredits(): Promise<void> {
     this.isLoading.set(true);
@@ -37,6 +40,22 @@ export class CreditService {
   public async filterByStatus(status: CreditStatus | null): Promise<void> {
     this.selectedStatus.set(status);
     await this.loadCredits();
+  }
+
+  public async loadCreditById(id: string): Promise<void> {
+    this.isDetailLoading.set(true);
+    this.isDetailError.set(false);
+    this.selectedCredit.set(null);
+
+    try {
+      const result = await this.creditApi.getCreditById(id);
+      this.handleDetailResponse(result);
+    } catch (error) {
+      this.isDetailError.set(true);
+      this.handleDetailResponse((error as HttpErrorResponse).error);
+    } finally {
+      this.isDetailLoading.set(false);
+    }
   }
 
   public async createCredit(newCredit: NewCreditRequest): Promise<boolean> {
@@ -63,6 +82,16 @@ export class CreditService {
         break;
       default:
         this.isError.set(true);
+    }
+  }
+
+  private handleDetailResponse(response: ApiResult<Credit>): void {
+    switch (response?.status?.code) {
+      case ApiStatusCode.CreditSuccess:
+        this.selectedCredit.set(response.body ?? null);
+        break;
+      default:
+        this.isDetailError.set(true);
     }
   }
 

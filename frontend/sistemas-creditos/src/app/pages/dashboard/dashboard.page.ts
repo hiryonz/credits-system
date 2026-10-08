@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { IonSkeletonText } from '@ionic/angular';
 import { CreditService } from '../../services/credit.service';
 import { CreditStatus, CreditStatusLabel } from '../../enum/credit.enum';
@@ -11,7 +12,7 @@ import { HeaderComponent } from '../../components/header/header.component';
   selector: 'cs-dashboard',
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss'],
-  imports: [CurrencyPipe, IonSkeletonText, HeaderComponent],
+  imports: [CurrencyPipe, RouterLink, IonSkeletonText, HeaderComponent],
 })
 export class DashboardPage implements OnInit {
   public creditService = inject(CreditService);

@@ -51,7 +51,7 @@
             </div>
           </div>
           @for (credit of creditService.credits(); track credit.id) {
-            <div class="dashboard__row px-24 py-16">
+            <a class="dashboard__row dashboard__row--link px-24 py-16" [routerLink]="['/credit', credit.id]">
               <div class="dashboard__container__cell">
                 <span class="dashboard__cell--first dashboard__muted">{{ credit.id.slice(0, 8) }}</span>
                 <span class="dashboard__cell">{{ credit.applicantDocument }}</span>
@@ -61,7 +61,7 @@
                 <span class="dashboard__cell">{{ credit.termMonths }}</span>
                 <span class="dashboard__cell dashboard__status dashboard__status--{{ credit.status.toLowerCase() }}">{{ statusLabels[credit.status] }}</span>
               </div>
-            </div>
+            </a>
           }
         </div>
       }

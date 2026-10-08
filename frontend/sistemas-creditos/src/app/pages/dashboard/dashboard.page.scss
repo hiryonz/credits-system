@@ -95,6 +95,15 @@
   font-variant-numeric: tabular-nums;
 }
 
+.dashboard__row--link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dashboard__row--link:hover {
+  background: var(--cs-background);
+}
+
 .dashboard__row:last-child {
   border-bottom: 0;
 }
