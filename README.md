@@ -93,6 +93,6 @@ docker compose -f docker-compose.prod.yml up -d --build
 
 ## App Android
 
-[Descargar APK](https://github.com/hiryonz/credits-system/raw/main/download-apk/credito-simple.apk)
+[Descargar APK](https://github.com/hiryonz/credits-system/blob/main/download-apk/app-debug.apk)
 
 Para instalarla, abre el archivo en el celular y permite "instalar apps de origen desconocido" cuando Android lo pida.
