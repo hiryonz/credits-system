@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { SKIP_AUTH_INTERCEPTOR } from '../../interceptors/auth.interceptor';
 import { ApiResult } from '../../interface/api-result.interface';
 import { AuthenticatedUser, LoginCredentials } from '../../interface/auth.interface';
 
@@ -18,6 +19,15 @@ export class AuthApiService {
   public register(credentials: LoginCredentials): Promise<ApiResult<AuthenticatedUser>> {
     return firstValueFrom(
       this.http.post<ApiResult<AuthenticatedUser>>(`${environment.apiUrl}/auth/register`, credentials),
+    );
+  }
+
+  public refreshToken(token: string): Promise<ApiResult<AuthenticatedUser>> {
+    return firstValueFrom(
+      this.http.post<ApiResult<AuthenticatedUser>>(`${environment.apiUrl}/auth/refresh-token`, null, {
+        headers: { Authorization: `Bearer ${token}` },
+        context: new HttpContext().set(SKIP_AUTH_INTERCEPTOR, true),
+      }),
     );
   }
 }

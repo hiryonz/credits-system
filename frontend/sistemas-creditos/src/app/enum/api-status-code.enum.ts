@@ -5,6 +5,7 @@ export enum ApiStatusCode {
   UserAlreadyExists = 'ACCT-004',
   InvalidToken = 'ACCT-006',
   InvalidUserData = 'ACCT-007',
+  TokenRefreshed = 'ACCT-008',
   CreditSuccess = 'TRX-000',
   CreditCreated = 'TRX-001',
   CreditStatusUpdated = 'TRX-002',

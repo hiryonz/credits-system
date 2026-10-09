@@ -7,6 +7,9 @@ import { NavController } from '@ionic/angular';
 import { ApiStatusCode } from '../enum/api-status-code.enum';
 import { ApiResult } from '../interface/api-result.interface';
 import { ToastService } from './toast.service';
+import { getTokenExpiration } from '../utils/jwt.util';
+
+const TOKEN_REFRESH_THRESHOLD_MS = 5 * 60 * 1000;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -17,6 +20,7 @@ export class AuthService {
 
   public isLoading = signal(false);
   private credentials: LoginCredentials;
+  private refreshInProgress: Promise<string> | null = null;
 
   public async login(credentials: LoginCredentials): Promise<void> {
     this.isLoading.set(true);
@@ -45,6 +49,39 @@ export class AuthService {
       return;
     } finally {
       this.isLoading.set(false);
+    }
+  }
+
+  /**
+   * Si al token le quedan 5 minutos o menos, pide uno nuevo y lo guarda.
+   * Nunca falla: si la renovación no funciona devuelve el token actual.
+   */
+  public refreshTokenIfNeeded(token: string): Promise<string> {
+    const expiration = getTokenExpiration(token);
+    const remaining = expiration === null ? 0 : expiration - Date.now();
+
+    if (remaining <= 0 || remaining > TOKEN_REFRESH_THRESHOLD_MS) {
+      return Promise.resolve(token);
+    }
+
+    // Varias peticiones simultáneas comparten la misma renovación
+    this.refreshInProgress ??= this.refreshToken(token).finally(() => (this.refreshInProgress = null));
+    return this.refreshInProgress;
+  }
+
+  private async refreshToken(token: string): Promise<string> {
+    try {
+      const result = await this.authApi.refreshToken(token);
+      const newToken = result?.body?.token;
+
+      if (result?.status?.code !== ApiStatusCode.TokenRefreshed || !newToken) {
+        return token;
+      }
+
+      await this.storage.set('token', newToken);
+      return newToken;
+    } catch {
+      return token;
     }
   }
 

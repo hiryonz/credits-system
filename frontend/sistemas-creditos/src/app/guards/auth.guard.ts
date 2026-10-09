@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
+import { getTokenExpiration } from '../utils/jwt.util';
 
 export const authGuard: CanActivateFn = async () => {
   const storage = inject(StorageService);
@@ -19,10 +20,6 @@ export const authGuard: CanActivateFn = async () => {
 };
 
 function isTokenValid(token: string | null): boolean {
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
-    return payload.exp * 1000 > Date.now();
-  } catch {
-    return false;
-  }
+  const expiration = getTokenExpiration(token);
+  return expiration !== null && expiration > Date.now();
 }
