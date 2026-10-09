@@ -6,6 +6,7 @@ import { StorageService } from '../services/storage.service';
 import { ToastService } from '../services/toast.service';
 import { AuthService } from '../services/auth.service';
 import { ApiStatusCode } from '../enum/api-status-code.enum';
+import { ModalService } from '../services/modal.service';
 
 /** Peticiones que manejan su propio token (ej. el refresh) y no deben pasar por este interceptor. */
 export const SKIP_AUTH_INTERCEPTOR = new HttpContextToken<boolean>(() => false);
@@ -24,6 +25,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
   const toastService = inject(ToastService);
   const navController = inject(NavController);
   const authService = inject(AuthService);
+  const modalService = inject(ModalService)
 
   const getToken = async (): Promise<string | null> => {
     const token = await storage.get('token');
@@ -41,6 +43,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
       if (isSessionExpired && !isPublicAuthRequest(request.url)) {
         storage.remove('token');
         storage.remove('username');
+        modalService.close();
         toastService.error('Tu sesión expiró, vuelve a iniciar sesión');
         navController.navigateRoot('auth');
       }
