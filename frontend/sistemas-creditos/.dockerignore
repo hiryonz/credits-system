@@ -1,0 +1,8 @@
+node_modules
+www
+.angular
+.git
+.vscode
+android
+ios
+pnpm-lock.yaml

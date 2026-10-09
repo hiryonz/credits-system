@@ -1,0 +1,10 @@
+services:
+  frontend:
+    build:
+      context: .
+      args:
+        CONFIGURATION: production
+    container_name: creditos-frontend
+    ports:
+      - "4200:80"
+    restart: unless-stopped
