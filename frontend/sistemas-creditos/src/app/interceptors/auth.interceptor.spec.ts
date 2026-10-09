@@ -6,23 +6,27 @@ import { NavController } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
 import { authInterceptor } from './auth.interceptor';
 import { ToastService } from '../services/toast.service';
+import { ModalService } from '../services/modal.service';
 
 describe('authInterceptor', () => {
   let http: HttpClient;
   let httpMock: HttpTestingController;
   const navController = { navigateRoot: vi.fn() };
   const toastService = { error: vi.fn() };
+  const modalService = { close: vi.fn() };
 
   beforeEach(() => {
     sessionStorage.clear();
     navController.navigateRoot.mockReset();
     toastService.error.mockReset();
+    modalService.close.mockReset();
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(withInterceptors([authInterceptor])),
         provideHttpClientTesting(),
         { provide: NavController, useValue: navController },
         { provide: ToastService, useValue: toastService },
+        { provide: ModalService, useValue: modalService },
       ],
     });
     http = TestBed.inject(HttpClient);
@@ -51,5 +55,6 @@ describe('authInterceptor', () => {
 
     expect(navController.navigateRoot).toHaveBeenCalledWith('auth');
     expect(toastService.error).toHaveBeenCalled();
+    expect(modalService.close).toHaveBeenCalled();
   });
 });
