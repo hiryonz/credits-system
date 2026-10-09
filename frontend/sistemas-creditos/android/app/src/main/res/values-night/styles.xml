@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
+        <item name="android:background">@drawable/splash</item>
+        <!-- Android 12+: fondo del splash detrás del ícono en modo oscuro -->
+        <item name="windowSplashScreenBackground">#171918</item>
+    </style>
+</resources>

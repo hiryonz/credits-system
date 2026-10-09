@@ -1,4 +1,6 @@
 .new-credit {
+  max-height: calc(var(--app-height, 100dvh) - 32px);
+  overflow-y: auto;
   background: #ffffff;
   color: var(--cs-text);
   border-radius: 16px;
