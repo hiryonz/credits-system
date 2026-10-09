@@ -46,6 +46,7 @@ Frontend en http://localhost:4200, usando la API de `src/environments/environmen
   └─ API.md                    endpoints y errores
 /frontend/sistemas-creditos
   └─ docker-compose.yml        frontend de producción
+/downloads/credito-simple.apk  app Android
 /docker-compose.yml            stack local completo
 ```
 
@@ -89,3 +90,9 @@ cd backend/demo
 cp .env.example .env
 docker compose -f docker-compose.prod.yml up -d --build
 ```
+
+## App Android
+
+[Descargar APK](https://github.com/hiryonz/credits-system/raw/main/download-apk/credito-simple.apk)
+
+Para instalarla, abre el archivo en el celular y permite "instalar apps de origen desconocido" cuando Android lo pida.
