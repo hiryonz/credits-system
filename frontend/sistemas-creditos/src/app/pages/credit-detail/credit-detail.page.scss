@@ -1,0 +1,161 @@
+.detail {
+  height: 100%;
+  overflow-y: auto;
+  background: var(--cs-background);
+  color: var(--cs-text);
+}
+
+.detail__main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.detail__back {
+  display: inline-flex;
+  color: var(--cs-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.detail__content {
+  animation: open 0.3s ease;
+}
+
+.detail__backimg {
+  margin-bottom: -6px;
+}
+
+.detail__heading {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1.5px solid var(--cs-text);
+}
+
+.detail__title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.detail__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.detail__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.detail__info {
+  flex: 1.4 1 420px;
+}
+
+.detail__section-title {
+  border-bottom: 1.5px solid var(--cs-text);
+}
+
+.detail__field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--cs-header);
+}
+
+.detail__muted {
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+.detail__amount {
+  font-size: 24px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail__value {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.detail__card {
+  flex: 1 1 320px;
+  background: #ffffff;
+  border: 1.5px solid var(--cs-text);
+}
+
+.detail__card-title {
+  background: var(--cs-header);
+  border-bottom: 1.5px solid var(--cs-text);
+}
+
+.detail__status {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.detail__status--pending {
+  color: var(--cs-status-pending);
+}
+
+.detail__status--approved {
+  color: var(--cs-status-approved);
+}
+
+.detail__status--rejected {
+  color: var(--cs-status-rejected);
+}
+
+.detail__comment {
+  border-top: 1px solid var(--cs-header);
+}
+
+.detail__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail__button {
+  min-height: 44px;
+  border: 0;
+  background: var(--cs-text);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.detail__skeleton-title {
+  width: 240px;
+  height: 64px;
+}
+
+.detail__skeleton-block {
+  width: 100%;
+  height: 240px;
+}
+
+.detail__change-status {
+  min-height: 44px;
+  border: 1.5px solid var(--cs-text);
+  background: var(--cs-greener-btn);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}

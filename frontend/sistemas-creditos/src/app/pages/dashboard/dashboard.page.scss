@@ -1,0 +1,229 @@
+.dashboard {
+  height: 100%;
+  overflow-y: auto;
+  background: var(--cs-background);
+  color: var(--cs-text);
+}
+
+.dashboard__main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dashboard__title {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.dashboard__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.dashboard__tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dashboard__tab {
+  position: relative;
+  min-height: 44px;
+  border: 1.5px solid transparent;
+  border-bottom: 0;
+  background: transparent;
+  color: var(--cs-text);
+  font: inherit;
+  font-weight: 600;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.dashboard__tab--active {
+  z-index: 1;
+  margin-bottom: -2px;
+  border-color: rgba(59, 75, 61, 0.721);
+  background: #ffffff;
+  opacity: 1;
+}
+
+.dashboard__create {
+  min-height: 44px;
+  border: 1.5px solid var(--cs-text);
+  background: var(--cs-greener-btn);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dashboard__panel {
+  background: #ffffff;
+  border: 1.5px solid rgba(59, 75, 61, 0.721);
+}
+
+.dashboard__content {
+  animation: open 0.3s ease;
+}
+
+.dashboard__table {
+  overflow-x: auto;
+}
+
+.dashboard__skeleton {
+  width: 100%;
+  height: 20px;
+}
+
+.dashboard__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-width: 680px;
+  border-bottom: 1px solid var(--cs-header);
+  font-variant-numeric: tabular-nums;
+}
+
+.dashboard__row--link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dashboard__row--link:hover {
+  background: var(--cs-background);
+}
+
+.dashboard__row:last-child {
+  border-bottom: 0;
+}
+
+.dashboard__container__cell {
+  width: 100%;
+  display: flex;
+}
+
+.dashboard__cell {
+  padding-left: 32px;
+  width: 100%;
+  max-width: 170px;
+  text-align: left;
+}
+
+.dashboard__cell--first {
+  width: 100%;
+  max-width: 170px;
+  text-align: left;
+}
+
+.dashboard__row--head {
+  background: var(--cs-header);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dashboard__muted {
+  opacity: 0.7;
+}
+
+.dashboard__status {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dashboard__status--pending {
+  color: var(--cs-status-pending);
+}
+
+.dashboard__status--approved {
+  color: var(--cs-status-approved);
+}
+
+.dashboard__status--rejected {
+  color: var(--cs-status-rejected);
+}
+
+.dashboard__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (max-width: 675px) {
+  .dashboard__main.px-24 {
+    padding: 24px 16px;
+  }
+
+  .dashboard__buttons {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .dashboard__create {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .dashboard__tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .dashboard__tab.px-20 {
+    flex: 1 0 auto;
+    padding: 10px 12px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .dashboard__row--head {
+    display: none;
+  }
+
+  .dashboard__row.px-24 {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    min-width: 0;
+    padding: 14px 16px;
+  }
+
+  .dashboard__container__cell {
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .dashboard__cell,
+  .dashboard__cell--first {
+    width: auto;
+    max-width: none;
+    padding-left: 0;
+  }
+
+  .dashboard__cell--term::after {
+    content: ' meses';
+  }
+}

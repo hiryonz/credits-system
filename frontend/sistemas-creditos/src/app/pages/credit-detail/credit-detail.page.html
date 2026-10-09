@@ -1,0 +1,68 @@
+<div class="detail">
+  <cs-header></cs-header>
+
+  <main class="detail__main px-24 py-24">
+    <img class="detail__backimg" src="assets\icon\arrow-back.svg" alt="← " routerLink="/dashboard">
+    <a class="detail__back py-12" routerLink="/dashboard">Volver a créditos</a>
+
+    @if (creditService.isDetailLoading()) {
+      <div class="detail__content mt-24">
+        <ion-skeleton-text class="detail__skeleton-title mb-32" [animated]="true"></ion-skeleton-text>
+        <ion-skeleton-text class="detail__skeleton-block" [animated]="true"></ion-skeleton-text>
+      </div>
+    } @else if (creditService.isDetailError() || !creditService.selectedCredit()) {
+      <div class="detail__content detail__empty py-48">
+        <img src="assets/icon/error-state-creditos.svg" alt="" width="200" class="mb-16" />
+        <p class="mt-0 mb-16">No pudimos cargar el crédito</p>
+        <button type="button" class="detail__button px-16 py-8" (click)="loadCredit()">Reintentar</button>
+      </div>
+    } @else {
+      @let credit = creditService.selectedCredit();
+      <div class="detail__content">
+        <div class="detail__heading mt-16 mb-32 pb-12">
+          <h1 class="detail__title mt-4 mb-0">Crédito N.º {{ credit?.id }}</h1>
+          @if (credit?.status === pendingStatus) {
+            <button type="button" class="detail__change-status px-16 py-8 mb-8" (click)="openChangeStatusModal()">Cambiar de estado</button>
+          }
+        </div>
+
+        <div class="detail__grid">
+          <section class="detail__info">
+            <h2 class="detail__label detail__section-title mt-0 mb-0 pb-12">Información del crédito</h2>
+            <div class="detail__field py-16">
+              <span class="detail__muted">Monto</span>
+              <span class="detail__amount">{{ credit?.amount | currency: 'USD' }}</span>
+            </div>
+            <div class="detail__field py-16">
+              <span class="detail__muted">Meses</span>
+              <span class="detail__value">{{ credit?.termMonths }}</span>
+            </div>
+            <div class="detail__field py-16">
+              <span class="detail__muted">Cédula</span>
+              <span class="detail__value">{{ credit?.applicantDocument }}</span>
+            </div>
+            <div class="detail__field py-16">
+              <span class="detail__muted">Creación</span>
+              <span class="detail__value">{{ credit?.createdAt | date: 'dd/MM/yyyy · HH:mm' }}</span>
+            </div>
+            <div class="detail__field py-16">
+              <span class="detail__muted">Actualización</span>
+              <span class="detail__value">{{ credit?.updatedAt | date: 'dd/MM/yyyy · HH:mm' }}</span>
+            </div>
+          </section>
+
+          <section class="detail__card">
+            <h2 class="detail__label detail__card-title mt-0 mb-0 px-24 py-12">Estado actual</h2>
+            <div class="p-24">
+              <span class="detail__status detail__status--{{ credit?.status.toLowerCase() }}">{{ statusLabels[credit.status] }}</span>
+              <div class="detail__comment mt-24 pt-16">
+                <span class="detail__label">Comentario</span>
+                <p class="mt-8 mb-0">{{ credit?.comment || 'Sin comentario' }}</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    }
+  </main>
+</div>

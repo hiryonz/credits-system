@@ -1,0 +1,21 @@
+<form class="new-credit p-32" (ngSubmit)="create()">
+  <h2 class="new-credit__title mt-0 mb-24">Nuevo crédito</h2>
+
+  <div class="mb-8">
+    <ion-input label="Cédula" labelPlacement="floating" fill="outline" name="applicantDocument" [(ngModel)]="applicantDocument" (ionBlur)="validate('applicantDocument')"></ion-input>
+    <p class="new-credit__error mt-4 mb-0">{{ errors.applicantDocument }}</p>
+  </div>
+
+  <div class="mb-8">
+    <ion-input label="Monto" labelPlacement="floating" fill="outline" type="text" inputmode="decimal" name="amount" [(ngModel)]="amount" (ionInput)="onAmountInput($event)" (ionBlur)="validate('amount')"></ion-input>
+    <p class="new-credit__error mt-4 mb-0">{{ errors.amount }}</p>
+  </div>
+
+  <div class="mb-16">
+    <ion-input label="Meses" labelPlacement="floating" fill="outline" type="text" inputmode="numeric" name="termMonths" [(ngModel)]="termMonths" (ionInput)="onTermMonthsInput($event)" (ionBlur)="validate('termMonths')"></ion-input>
+    <p class="new-credit__error mt-4 mb-0">{{ errors.termMonths }}</p>
+  </div>
+
+  <cs-button text="Crear crédito" [isLoading]="creditService.isSaving()"></cs-button>
+  <button type="button" class="new-credit__cancel mt-12 py-12" (click)="cancel()">Cancelar</button>
+</form>

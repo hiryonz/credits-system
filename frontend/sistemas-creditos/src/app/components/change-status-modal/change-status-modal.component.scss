@@ -1,0 +1,143 @@
+.change-status {
+  background: #ffffff;
+  color: var(--cs-text);
+  border-radius: 16px;
+}
+
+.change-status__title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.change-status__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.change-status__field {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1.5px solid var(--cs-greener-btn);
+  background: transparent;
+  color: var(--cs-text);
+  font: inherit;
+  resize: vertical;
+  border-radius: 8px;
+}
+
+.change-status__field:focus {
+  outline: none;
+  border-color: var(--cs-text);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cs-greener-btn) 35%, transparent);
+}
+
+.change-status__dropdown {
+  position: relative;
+}
+
+.change-status__trigger,
+.change-status__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  background: transparent;
+  color: var(--cs-text);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.change-status__trigger {
+  border: 1.5px solid var(--cs-greener-btn);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.change-status__trigger:hover,
+.change-status__trigger[aria-expanded="true"] {
+  border-color: var(--cs-text);
+}
+
+.change-status__placeholder {
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+.change-status__chevron {
+  transition: transform 0.2s ease;
+}
+
+.change-status__chevron--open {
+  transform: rotate(180deg);
+}
+
+.change-status__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: #ffffff;
+  border: 1.5px solid var(--cs-text);
+  border-radius: 8px;
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--cs-text) 15%, transparent);
+  animation: menu-open 0.15s ease;
+}
+
+.change-status__option:hover {
+  background: var(--cs-background);
+}
+
+.change-status__option--selected {
+  background: var(--cs-header);
+}
+
+.change-status__option-label {
+  display: flex;
+  align-items: center;
+}
+
+.change-status__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.change-status__dot--approved {
+  background: var(--cs-status-approved);
+}
+
+.change-status__dot--rejected {
+  background: var(--cs-status-rejected);
+}
+
+.change-status__error {
+  min-height: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ion-color-danger);
+}
+
+.change-status__cancel {
+  width: 100%;
+  border: 0;
+  background: none;
+  color: var(--cs-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@keyframes menu-open {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}

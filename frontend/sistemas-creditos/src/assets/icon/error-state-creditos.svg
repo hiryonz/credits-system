@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" fill="none" role="img" aria-label="Error al cargar créditos">
+  <rect x="60" y="30" width="136" height="150" fill="#C9DEC6" stroke="#17301F" stroke-width="3" transform="rotate(7 128 114)"/>
+  <rect x="44" y="40" width="136" height="168" fill="#FBFDF9" stroke="#17301F" stroke-width="3"/>
+  <rect x="44" y="40" width="136" height="30" fill="#DCEADA" stroke="#17301F" stroke-width="3"/>
+  <rect x="56" y="49" width="12" height="12" fill="#17301F"/>
+  <path d="M78 55h40" stroke="#17301F" stroke-width="3"/>
+  <path d="M58 96h40l10 12 12-24 10 12h36" stroke="#8FB08F" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M58 136h108M58 160h64" stroke="#8FB08F" stroke-width="3" stroke-dasharray="8 7"/>
+  <circle cx="172" cy="184" r="40" fill="#FBFDF9"/>
+  <circle cx="172" cy="184" r="34" fill="#A3291D"/>
+  <path d="M172 166v22" stroke="#FBFDF9" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="172" cy="201" r="4" fill="#FBFDF9"/>
+</svg>

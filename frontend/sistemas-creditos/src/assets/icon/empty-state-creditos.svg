@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" fill="none" role="img" aria-label="Sin créditos">
+  <!-- hoja de atrás -->
+  <rect x="60" y="30" width="136" height="150" fill="#C9DEC6" stroke="#17301F" stroke-width="3" transform="rotate(7 128 114)"/>
+  <!-- hoja del libro -->
+  <rect x="44" y="40" width="136" height="168" fill="#FBFDF9" stroke="#17301F" stroke-width="3"/>
+  <rect x="44" y="40" width="136" height="30" fill="#DCEADA" stroke="#17301F" stroke-width="3"/>
+  <rect x="56" y="49" width="12" height="12" fill="#17301F"/>
+  <path d="M78 55h40" stroke="#17301F" stroke-width="3"/>
+  <!-- renglones vacíos -->
+  <path d="M58 96h108M58 122h108M58 148h64" stroke="#8FB08F" stroke-width="3" stroke-dasharray="8 7"/>
+  <!-- contador en cero -->
+  <circle cx="172" cy="184" r="40" fill="#FBFDF9"/>
+  <circle cx="172" cy="184" r="34" fill="#17301F"/>
+  <ellipse cx="172" cy="184" rx="11" ry="17" stroke="#FBFDF9" stroke-width="5.5"/>
+</svg>

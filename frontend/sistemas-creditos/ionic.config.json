@@ -1,0 +1,7 @@
+{
+  "name": "sistemas-creditos",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
