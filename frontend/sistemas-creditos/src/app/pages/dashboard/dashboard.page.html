@@ -58,7 +58,7 @@
               </div>
               <div class="dashboard__container__cell">
                 <span class="dashboard__cell">{{ credit.amount | currency: 'USD' }}</span>
-                <span class="dashboard__cell">{{ credit.termMonths }}</span>
+                <span class="dashboard__cell dashboard__cell--term">{{ credit.termMonths }}</span>
                 <span class="dashboard__cell dashboard__status dashboard__status--{{ credit.status.toLowerCase() }}">{{ statusLabels[credit.status] }}</span>
               </div>
             </a>

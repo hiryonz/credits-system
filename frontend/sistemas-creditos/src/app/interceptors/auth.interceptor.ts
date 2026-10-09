@@ -27,7 +27,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
 
   const getToken = async (): Promise<string | null> => {
     const token = await storage.get('token');
-    return token ? authService.refreshTokenIfNeeded(token) : null;
+    return token ? await authService.refreshTokenIfNeeded(token) : null;
   };
 
   return from(getToken()).pipe(
