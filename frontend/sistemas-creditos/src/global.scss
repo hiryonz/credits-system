@@ -206,6 +206,11 @@
 
 .mx-auto { margin-left: auto; margin-right: auto; }
 
+// La app ocupa solo el área visible (sin teclado), ver AppComponent
+body {
+    height: var(--app-height, 100%);
+}
+
 //modal styles
 .custom-modal-class {
     --width: 90%;

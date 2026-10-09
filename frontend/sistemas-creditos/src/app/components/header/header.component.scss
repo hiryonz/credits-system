@@ -38,7 +38,8 @@
 @media (max-width: 600px) {
   .header.px-24 {
     flex-wrap: nowrap;
-    padding: 12px 16px;
+    // La app se dibuja detrás de la barra de estado: sumar su alto al padding
+    padding: calc(16px + var(--ion-safe-area-top, 0px)) 16px 16px;
   }
 
   .header__brand-name {
