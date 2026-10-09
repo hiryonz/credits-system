@@ -1,0 +1,132 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Backend de Sistema de Creditos en una EC2 de capa gratuita. Solo expone el
+  puerto 8080. En cada arranque actualiza el repositorio y levanta
+  backend/demo/docker-compose.prod.yml.
+
+Parameters:
+  InstanceType:
+    Type: String
+    Default: t3.micro
+    AllowedValues: [t2.micro, t3.micro]
+    Description: Capa gratuita. Usa t2.micro si tu cuenta/region no incluye t3.micro.
+  LatestAmiId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
+  RepoUrl:
+    Type: String
+    Default: https://github.com/hiryonz/sistema-creditos.git
+  RepoBranch:
+    Type: String
+    Default: main
+  DbHost:
+    Type: String
+  DbPort:
+    Type: Number
+    Default: 5432
+  DbName:
+    Type: String
+  DbSchema:
+    Type: String
+    Default: public
+  DbUser:
+    Type: String
+  DbPassword:
+    Type: String
+    NoEcho: true
+    Description: Sin comillas simples (').
+  JwtSecret:
+    Type: String
+    NoEcho: true
+    MinLength: 32
+    Description: Minimo 32 caracteres, sin comillas simples (').
+  JwtExpirationMs:
+    Type: Number
+    Default: 3600000
+
+Resources:
+  BackendSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Solo la API del backend
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0
+
+  BackendInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref LatestAmiId
+      InstanceType: !Ref InstanceType
+      SecurityGroupIds:
+        - !GetAtt BackendSecurityGroup.GroupId
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: 20
+            VolumeType: gp3
+      Tags:
+        - Key: Name
+          Value: sistema-creditos-backend
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -euxo pipefail
+
+          dnf install -y docker git
+          systemctl enable --now docker
+
+          # Swap: la instancia trae 1 GB de RAM y el build de Maven necesita mas
+          dd if=/dev/zero of=/swapfile bs=1M count=2048
+          chmod 600 /swapfile
+          mkswap /swapfile
+          swapon /swapfile
+          echo '/swapfile none swap sw 0 0' >> /etc/fstab
+
+          # Docker Compose y Buildx (no vienen en los repos de Amazon Linux 2023)
+          PLUGINS=/usr/local/lib/docker/cli-plugins
+          mkdir -p $PLUGINS
+          curl -fsSL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o $PLUGINS/docker-compose
+          # .../releases/latest redirige a .../releases/tag/vX.Y.Z
+          BUILDX_VERSION=$(basename "$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/docker/buildx/releases/latest)")
+          curl -fsSL https://github.com/docker/buildx/releases/download/$BUILDX_VERSION/buildx-$BUILDX_VERSION.linux-amd64 -o $PLUGINS/docker-buildx
+          chmod +x $PLUGINS/docker-compose $PLUGINS/docker-buildx
+
+          git clone --branch ${RepoBranch} ${RepoUrl} /opt/sistema-creditos
+
+          cat > /opt/sistema-creditos/backend/demo/.env <<'ENVEOF'
+          DB_HOST=${DbHost}
+          DB_PORT=${DbPort}
+          DB_NAME=${DbName}
+          DB_SCHEMA=${DbSchema}
+          DB_USER=${DbUser}
+          DB_PASSWORD='${DbPassword}'
+          JWT_SECRET='${JwtSecret}'
+          JWT_EXPIRATION_MS=${JwtExpirationMs}
+          ENVEOF
+          chmod 600 /opt/sistema-creditos/backend/demo/.env
+
+          # Se ejecuta en cada arranque: reiniciar la instancia = desplegar la ultima version
+          cat > /var/lib/cloud/scripts/per-boot/deploy-backend.sh <<'DEPLOYEOF'
+          #!/bin/bash
+          set -euxo pipefail
+          cd /opt/sistema-creditos
+          git fetch origin ${RepoBranch}
+          git reset --hard origin/${RepoBranch}
+          cd backend/demo
+          docker compose -f docker-compose.prod.yml up -d --build
+          docker image prune -f
+          DEPLOYEOF
+          chmod +x /var/lib/cloud/scripts/per-boot/deploy-backend.sh
+
+          # Primer despliegue (en este arranque cloud-init ya paso por los scripts per-boot)
+          /var/lib/cloud/scripts/per-boot/deploy-backend.sh
+
+Outputs:
+  ApiUrl:
+    Description: URL para environment.prod.ts del frontend (cambia si detienes e inicias la instancia)
+    Value: !Sub http://${BackendInstance.PublicIp}:8080
+  HealthCheck:
+    Value: !Sub http://${BackendInstance.PublicIp}:8080/actuator/health

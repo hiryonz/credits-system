@@ -1,0 +1,70 @@
+<div class="dashboard">
+  <cs-header></cs-header>
+
+  <main class="dashboard__main px-24 py-40">
+    <div class="dashboard__title-row mb-32">
+      <h1 class="dashboard__title m-0">Créditos</h1>
+    </div>
+
+    <div class="dashboard__buttons">
+      <div class="dashboard__tabs">
+        <button type="button" class="dashboard__tab px-20 py-12" [class.dashboard__tab--active]="creditService.selectedStatus() === null" (click)="selectStatus(null)">Todos</button>
+        @for (status of statuses; track status) {
+          <button type="button" class="dashboard__tab px-20 py-12" [class.dashboard__tab--active]="creditService.selectedStatus() === status" (click)="selectStatus(status)">{{ statusLabels[status] }}</button>
+        }
+      </div>
+
+      <button type="button" class="dashboard__create px-16 py-8 mb-8" (click)="openNewCreditModal()">Crear crédito</button>
+    </div>
+
+    <div class="dashboard__panel">
+      @if (creditService.isLoading()) {
+        <div class="dashboard__content">
+          @for (row of skeletonRows; track row) {
+            <div class="dashboard__row px-24 py-16">
+              <ion-skeleton-text class="dashboard__skeleton" [animated]="true"></ion-skeleton-text>
+            </div>
+          }
+        </div>
+      } @else if (creditService.isError()) {
+        <div class="dashboard__content dashboard__empty py-48">
+          <img src="assets/icon/error-state-creditos.svg" alt="" width="200" class="mb-16" />
+          <p class="mt-0 mb-16">No pudimos cargar los créditos</p>
+          <button type="button" class="dashboard__create px-16 py-8" (click)="creditService.loadCredits()">Reintentar</button>
+        </div>
+      } @else if (creditService.credits().length === 0) {
+        <div class="dashboard__content dashboard__empty py-48">
+          <img src="assets/icon/empty-state-creditos.svg" alt="" width="200" class="mb-16" />
+          <p class="m-0">No hay créditos para mostrar</p>
+        </div>
+      } @else {
+        <div class="dashboard__content dashboard__table">
+          <div class="dashboard__row dashboard__row--head px-24 py-12">
+            <div class="dashboard__container__cell">
+              <span class="dashboard__cell--first">N.º</span>
+              <span class="dashboard__cell">Cédula</span>
+            </div>
+            <div class="dashboard__container__cell">
+              <span class="dashboard__cell">Monto</span>
+              <span class="dashboard__cell">Meses</span>
+              <span class="dashboard__cell">Estado</span>
+            </div>
+          </div>
+          @for (credit of creditService.credits(); track credit.id) {
+            <a class="dashboard__row dashboard__row--link px-24 py-16" [routerLink]="['/credit', credit.id]">
+              <div class="dashboard__container__cell">
+                <span class="dashboard__cell--first dashboard__muted">{{ credit.id.slice(0, 8) }}</span>
+                <span class="dashboard__cell">{{ credit.applicantDocument }}</span>
+              </div>
+              <div class="dashboard__container__cell">
+                <span class="dashboard__cell">{{ credit.amount | currency: 'USD' }}</span>
+                <span class="dashboard__cell dashboard__cell--term">{{ credit.termMonths }}</span>
+                <span class="dashboard__cell dashboard__status dashboard__status--{{ credit.status.toLowerCase() }}">{{ statusLabels[credit.status] }}</span>
+              </div>
+            </a>
+          }
+        </div>
+      }
+    </div>
+  </main>
+</div>
